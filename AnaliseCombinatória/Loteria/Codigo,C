@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <math.h>
+
+#define MAX 2500
+
+long long comb(int x, int y) {
+    if (y > x) return 0;
+    if (y == 0 || y == x) return 1;
+
+
+    if (y > x - y) {
+        y = x - y;
+    }
+
+    long long numerador = 1;
+    long long denominador = 1;
+
+
+    for (int i = 0; i < y; i++) {
+        numerador *= (x - i);
+        denominador *= (i + 1);
+    }
+
+    return numerador / denominador;
+}
+
+void primos(int limite, bool primos[]) {
+    for (int i = 0; i <= limite; i++) {
+        primos[i] = true;
+    }
+    primos[0] = primos[1] = false;
+    for (int i = 2; i <= sqrt(limite); i++) {
+        if (primos[i]) {
+            for (int j = i * i; j <= limite; j += i) {
+                primos[j] = false;
+            }
+        }
+    }
+}
+
+int main() {
+    int linha, coluna, escolha;
+
+    bool primosArray[MAX];
+    primos(MAX - 1, primosArray);
+
+    while (1) {
+        scanf("%d %d %d", &linha, &coluna, &escolha);
+
+        if (linha == 0 && coluna == 0 && escolha == 0) {
+            break;
+        }
+
+        int linha_contador[linha];
+        int coluna_contador[coluna];
+        long long int resultado = 0;
+
+
+        for (int i = 0; i < linha; i++) {
+            linha_contador[i] = 0;
+        }
+        for (int i = 0; i < coluna; i++) {
+            coluna_contador[i] = 0;
+        }
+
+        int contador = 0;
+        for (int l = 0; l < linha; l++) {
+            for (int c = 0; c < coluna; c++) {
+                if (!primosArray[contador]) {
+                    linha_contador[l]++;
+                    coluna_contador[c]++;
+                }
+                contador++;
+            }
+        }
+
+
+        for (int l = 0; l < linha; l++) {
+            if (linha_contador[l] >= escolha) {
+                resultado += comb(linha_contador[l], escolha);
+            }
+        }
+
+
+        for (int c = 0; c < coluna; c++) {
+            if (coluna_contador[c] >= escolha) {
+                resultado += comb(coluna_contador[c], escolha);
+            }
+        }
+
+        if(escolha == 1){
+            resultado /= 2;
+
+        }
+        printf("%lld\n", resultado);
+    }
+
+    return 0;
+}
