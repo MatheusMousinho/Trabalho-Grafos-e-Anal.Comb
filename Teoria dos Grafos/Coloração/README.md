@@ -6,8 +6,8 @@ A primeira linha da entrada consiste de dois inteiros positivos N e M (N, M ≤ 
 Saída
 Imprima uma linha contendo um único inteiro que represente o número de cliques necessários para colorir toda a figura descrita na entrada.
 
-Exemplos de Entrada	Exemplos de Saída
-6 9                  6                 
+Exemplos de Entrada	
+6 9                                
 .ooo.ooo.
 o...o...o
 .o.....o.
@@ -15,8 +15,13 @@ o...o...o
 ...o.o...
 ....o....
 
-1 8                 4
+1 8                 
 .o.o.o.o
 
-1 1                 0
+1 1                 
 o
+
+Exemplos de Saída
+6
+4
+0
